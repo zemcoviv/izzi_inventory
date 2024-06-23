@@ -3,7 +3,15 @@
 # Обновление списка пакетов и установка необходимых системных зависимостей
 echo "Updating package list and installing system dependencies..."
 sudo apt-get update
-sudo apt-get install -y libpq-dev python3-dev build-essential postgresql postgresql-contrib
+sudo apt-get install -y libpq-dev python3-dev build-essential postgresql postgresql-contrib git
+
+# Установка masscan из исходного кода
+echo "Installing masscan..."
+git clone https://github.com/robertdavidgraham/masscan.git
+cd masscan
+make
+sudo make install
+cd ..
 
 # Установка виртуального окружения для Python
 echo "Setting up Python virtual environment..."
@@ -13,7 +21,7 @@ source venv/bin/activate
 # Обновление pip и установка Python-зависимостей
 echo "Installing Python dependencies..."
 pip install --upgrade pip
-pip install Flask psycopg2-binary masscan nmap
+pip install Flask psycopg2-binary nmap
 
 # Настройка PostgreSQL
 echo "Setting up PostgreSQL database..."
